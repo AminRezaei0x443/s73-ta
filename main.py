@@ -1,9 +1,9 @@
 import uvicorn
 from fastapi import FastAPI
-import routers 
+from app import router
 
 app = FastAPI()
-app.include_router(routers.router)
+app.include_router(router)
 
 
 def main():
