@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    command: |
+      bash -c 'python main.py'
+    volumes:
+      - ./src/:/usr/src/app/
+    ports:
+      - 8118:8118
