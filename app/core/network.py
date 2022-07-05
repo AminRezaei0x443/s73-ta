@@ -1,6 +1,5 @@
-import json
 from .node import Node
-from treelib import Node as TNode, Tree
+from treelib import Node as Tree
 
 
 class Network:
@@ -28,7 +27,42 @@ class Network:
         self.trees.append(node)
 
     def remove_node(self, id: int) -> bool:
-        pass
+        if id not in self.nodes:
+            return False
+        node = self.nodes[id]
+        removal_node = node
+        while node.parent is not None:
+            node = node.parent
+        # here we have the parent
+        index = self.trees.index(node)
+        nodes: list[Node] = []
+        q = [node]
+        while len(q) > 0:
+            n = q.pop()
+            q += n.children
+            nodes.append(n)
+        nodes.remove(removal_node)
+        nodes = list(sorted(nodes, key=lambda i: i.capacity, reverse=True))
+        for x in nodes:
+            x.parent = None
+            x.clear_children()
+        current_node = nodes.pop(0)
+        
+        # replace the tree root
+        self.trees[index] = current_node
+        
+        waiting_list = []
+        while len(nodes) > 0:
+            if current_node.has_capacity():
+                n = nodes.pop(0)
+                current_node.add_child(n)
+                waiting_list.append(n)
+            else:
+                if len(waiting_list) > 0:
+                    current_node = waiting_list.pop(0)
+                else:
+                    return False
+        return True
 
     def topology(self, format="text") -> str:
         reps = []

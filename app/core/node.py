@@ -36,3 +36,6 @@ class Node:
             "capacity": self.capacity,
             "children": list(map(lambda x: x.to_dict(), self.children))
         }
+
+    def clear_children(self):
+        self.children.clear()

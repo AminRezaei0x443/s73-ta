@@ -17,7 +17,9 @@ async def join(req: JoinRequest):
 
 @router.post("/network/leave")
 async def leave(req: LeaveRequest):
-    return req
+    return {
+        "ok": network.remove_node(req.id)
+    }
 
 
 @router.get("/network/state")
