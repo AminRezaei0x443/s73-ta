@@ -1,4 +1,6 @@
+import json
 from .node import Node
+from treelib import Node as TNode, Tree
 
 
 class Network:
@@ -29,4 +31,25 @@ class Network:
         pass
 
     def topology(self, format="text") -> str:
-        pass
+        reps = []
+        if format == "text":
+            for n in self.trees:
+                tree = Tree()
+                q = [n]
+                while len(q) > 0:
+                    node = q.pop()
+                    q += node.children
+                    if node.parent is None:
+                        tree.create_node(str(node.id), str(node.id))
+                    else:
+                        tree.create_node(str(node.id), str(
+                            node.id), parent=str(node.parent.id))
+                o = tree.show(stdout=False)
+                reps.append(o)
+            return "\n".join(reps)
+        elif format == "json":
+            o = {
+                "trees": list(map(lambda x: x.to_dict(), self.trees))
+            }
+            return o
+        return ""

@@ -21,8 +21,8 @@ async def leave(req: LeaveRequest):
 
 
 @router.get("/network/state")
-async def root():
-    return "Topology of Network"
+async def state(format: str = "json"):
+    return network.topology(format=format)
 
 
 @router.get("/")
