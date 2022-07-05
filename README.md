@@ -24,3 +24,8 @@ python main.py
 After that, the api will be available at [localhost:8118](localhost:8118), and the docs will be avaiable at [localhost:8118/docs](localhost:8118/docs)
 
 Postman collection: [open](https://www.getpostman.com/collections/8b1b247083ab94b4bb26)
+## Docker
+Docker support is experimentally available at [`docker`](https://github.com/AminRezaei0x443/s73-ta/tree/docker) branch. You can run it with:
+```
+sudo docker-compose up
+```
